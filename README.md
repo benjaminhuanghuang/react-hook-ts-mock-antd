@@ -4,6 +4,7 @@
 - [从零打造TypeScript版React组件库之树形组件](http://www.zhufengpeixun.cn/zhufenggongkaike/gaojijiagougongkaike/2019-10-24/1231.html)
 
 ## Key points
+![Cource content](./_notes/images/course-content.png)
 ### Typescript
 - interface
 - class
@@ -42,3 +43,5 @@
 - Husky validation before submit
 - Travis CI/CD
 
+## Missed
+- 3-3
