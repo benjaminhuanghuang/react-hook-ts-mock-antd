@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { MenuItemProps } from './menuItem'
 
 type MenuMode = 'horizontal' | 'vertical'
-type SelectCallback = (selectedIndex: number) => void;
+type SelectCallback = (selectedIndex: string) => void;
 
 export interface MenuProps {
   /**默认 active 的菜单项的索引值 */
@@ -13,14 +13,14 @@ export interface MenuProps {
   mode?: MenuMode;
   style?: CSSProperties;
   /**点击菜单项触发的回掉函数 */
-  onSelect?: (selectedIndex: string) => void; 
+  onSelect?: SelectCallback; 
   /**设置子菜单的默认打开 只在纵向模式下生效 */
   defaultOpenSubMenus?: string[];
 }
 
 interface IMenuContext { 
   index: string;
-  onSelect?: (selectedIndex: string) => void;
+  onSelect?: SelectCallback;
   mode?: MenuMode;
   defaultOpenSubMenus?: string[];  
 }
@@ -52,13 +52,15 @@ export const Menu: FC<MenuProps> = (props) => {
     mode,
     defaultOpenSubMenus,
   }
+
+  // Filter the children of the Menu and add 'index' property to MenuItem
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {
       const childElement = child as React.FunctionComponentElement<MenuItemProps>
       const { displayName } = childElement.type
       if (displayName === 'MenuItem' || displayName === 'SubMenu') {
         return React.cloneElement(childElement, {
-          index: index.toString()
+          index: index.toString()  // create index
         })
       } else {
         console.error("Warning: Menu has a child which is not a MenuItem component")

@@ -29,3 +29,7 @@ styles/index.scss
 ```
 
 ## Test
+Add test id to the component
+```
+  data-testid="test-menu"
+```
