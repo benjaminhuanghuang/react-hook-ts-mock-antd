@@ -3,6 +3,8 @@ import classNames from 'classnames'
 import { MenuItemProps } from './menuItem'
 
 type MenuMode = 'horizontal' | 'vertical'
+type SelectCallback = (selectedIndex: number) => void;
+
 export interface MenuProps {
   /**默认 active 的菜单项的索引值 */
   defaultIndex?: string;
@@ -11,11 +13,12 @@ export interface MenuProps {
   mode?: MenuMode;
   style?: CSSProperties;
   /**点击菜单项触发的回掉函数 */
-  onSelect?: (selectedIndex: string) => void;
+  onSelect?: (selectedIndex: string) => void; 
   /**设置子菜单的默认打开 只在纵向模式下生效 */
   defaultOpenSubMenus?: string[];
 }
-interface IMenuContext {
+
+interface IMenuContext { 
   index: string;
   onSelect?: (selectedIndex: string) => void;
   mode?: MenuMode;
@@ -31,6 +34,7 @@ export const MenuContext = createContext<IMenuContext>({index: '0'})
  */
 export const Menu: FC<MenuProps> = (props) => {
   const { className, mode, style, children, defaultIndex, onSelect, defaultOpenSubMenus } = props
+  // set active menu item  
   const [ currentActive, setActive ] = useState(defaultIndex)
   const classes = classNames('viking-menu', className, {
     'menu-vertical': mode === 'vertical',
