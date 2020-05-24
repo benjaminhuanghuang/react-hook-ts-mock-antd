@@ -18,3 +18,16 @@ https://storybook.js.org/docs/configurations/typescript-config/
 Modify .storybook/config.js
 ```
 ```
+## Storybook Addons
+- decorator
+
+- global decorator
+Put decorator in .storybook/config.tsx
+
+
+## Create document
+Storybook info Addon
+```
+  npm i -D @storybook/addon-info
+  npm i -S @types/storybook__addon-info
+```
