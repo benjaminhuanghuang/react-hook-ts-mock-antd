@@ -28,8 +28,33 @@ styles/index.scss
   @import "../components/Menu/style";
 ```
 
+
+Submenu arrow animation
+```
+ .arrow-icon {
+    transition: transform .25s ease-in-out;
+    margin-left: 3px;
+  }
+  &:hover {
+    .arrow-icon {
+      transform: rotate(180deg);
+    }
+  }
+```
 ## Test
 Add test id to the component
 ```
   data-testid="test-menu"
+```
+
+Add css
+```
+  wrapper.container.append(createStyleFile())
+```
+
+Async 
+```
+  await wait(() => {
+    expect(wrapper.queryByText('drop1')).toBeVisible()
+  })
 ```

@@ -1,7 +1,7 @@
 
 
 
-## sass @each loop
+## sass loop
 ```
 $theme-colors: 
 (
@@ -21,4 +21,3 @@ $theme-colors:
   }
 }
 ```
-
