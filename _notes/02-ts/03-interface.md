@@ -8,3 +8,9 @@ Define the shape of the object
   }
 ```
 
+Define the shape of class
+```
+  class Car implements: IRadio, IBattery {
+
+  }
+```

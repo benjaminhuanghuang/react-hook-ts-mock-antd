@@ -15,5 +15,9 @@ or
   tsc hello.ts
 ```
 
-## 
+## Run ts code with node
+```
+  npm install -g ts-node
+  tsnode demo.ts
+```  
 
