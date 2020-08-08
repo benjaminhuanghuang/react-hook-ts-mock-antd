@@ -6,7 +6,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "include":["**/*"],
     "exclude":[],
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,6 +21,6 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "*.ts"
   ]
 }

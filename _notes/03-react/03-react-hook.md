@@ -1,13 +1,6 @@
-## 
 
+# React Hook (React 16.8)
 
-## React life cycle
-![](./images/react-life-cycle.png)
-
-- Sample: DigitalClock
-
-
-## React Hook (React 16.8)
 ### State hook: useState
 
 ### Effect hook
