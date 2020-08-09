@@ -30,8 +30,15 @@
 ``` 
 ## Union Types
 ```
-let numOrStr: number | string = 234
+  let numOrStr: number | string = 234
 ```
+
+## Intersection types
+```
+  // Provide native properties, like OnClick 
+  type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>;
+```
+
 ## Array
 let arr: number[] : [1, 2, 3]
 
@@ -39,3 +46,6 @@ let arr: number[] : [1, 2, 3]
 ```
 let user: [string, number] = ['test', 10]
 ```
+
+## String Literal TYpe
+type Dir = "East" | "West" |"Norte" | "South"
