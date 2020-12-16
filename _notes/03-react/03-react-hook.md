@@ -6,8 +6,7 @@
 
 ```
 ## useEffect
-- What is side effects: 
-Side effects are basically anything that affects something outside of the scope of the current function that’s being executed. That includes: API requests, Error tracking
+
 
 ```
   useEffect( ()=>{dothing...}, [] )
@@ -29,14 +28,7 @@ By dafault, EffectCallback 会在每次渲染后执行
     };
   });
 ```
-- Only first loading
-```
-  useEffect( ()=>{dothing...}, [] )
-```
-- When state change
-```
-  useEffect( ()=>{dothing...}, [state] )
-```
+
 
 ## Customized hook
 将组件逻辑提取到可重用函数中
