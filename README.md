@@ -1,10 +1,19 @@
 # React+TypeScript高仿AntDesign开发企业级UI组件库
 - [React+TypeScript高仿AntDesign开发企业级UI组件库-慕课网](https://coding.imooc.com/class/428.html)
-- [基于实例的 React16 傻瓜课程](https://www.imooc.com/learn/1045)
-- [从零打造TypeScript版React组件库之树形组件](http://www.zhufengpeixun.cn/zhufenggongkaike/gaojijiagougongkaike/2019-10-24/1231.html)
+  
+  - [Online Demo](http://vikingship.xyz/)
 
-## Key points
+  - [Youtube]https://www.youtube.com/watch?v=q-llQ8H3EAQ&list=PL5LP0EWDTG3jFHfn7sl6hZTp8p-aRPJ0N
+
+
+
 ![Cource content](./_notes/images/course-content.png)
+
+
+## 组件开发流程
+![](./_notes/_images/react-component-dev-process.png)
+## Key points
+
 - Typescript
   - interface
   - class
@@ -36,7 +45,6 @@
 - CI/CD
   - Husky validation before submit
   - Travis CI/CD
-
 ## Missed
 - 2-10, 2-12, 2-14
 - 3-3, 3-8, 3-9, 3-12

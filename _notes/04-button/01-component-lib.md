@@ -1,14 +1,14 @@
 ## React component development process
-![](images/react-component-dev-process.png)
+![](../_images/react-component-dev-process.png)
 
 
 ## Project structure
-![](images/project-structure.png)
+![](../_images/project-structure.png)
 
 
 
 ## Coding standard
-Using eslint, add .vscode/settings.json (https://create-react-app.dev/docs/setting-up-your-editor)
+Using eslint, add settings in .vscode/settings.json (https://create-react-app.dev/docs/setting-up-your-editor)
 ```
 
 ```
@@ -29,7 +29,11 @@ Using eslint, add .vscode/settings.json (https://create-react-app.dev/docs/setti
 
   npx node-sass styles/_variableds.scss  vaer.css      # complie parital file start with "_" will create empty file
 ```
-
+- Process classname
+```
+    "classnames":"^2.2.6",
+    "@types/classnames":"^2.2.10"
+```
 
 ## Unit Test
 ```

@@ -48,3 +48,9 @@ const withLoader = <P extends ILoaderState>(WrappedComponent: React.ComponentTyp
     }
   };
 };
+
+/* Usage
+  const WrappedComponent = withLoader(Component, "props")
+
+  <WrappedComponent/>
+*/
