@@ -5,43 +5,37 @@
 
 ## Key points
 ![Cource content](./_notes/images/course-content.png)
-### Typescript
-- interface
-- class
-- Generics
-- 
+- Typescript
+  - interface
+  - class
+  - Generics
 
-### React Hooks
-- userState
-- useEffect
-- useRef
-- useContext
-- Customized Hook
+- React Hooks
 
-### Test
-- Jest , react-testing-library
-- mock
+- Test
+  - Jest , react-testing-library
+  - mock
 
-### CSS
-- Sass
-- variable ,mixin, function
-- Css file organization in big project
+- CSS
+  - Sass
+  - variable ,mixin, function
+  - Css file organization in big project
 
-## 3rd Party Libs
-- react-transition
-- fontawasome
-- axios
+- 3rd Party Libs
+  - react-transition
+  - fontawasome
+  - axios
 
-### Documents
-- StoryBook－高效有组织的构建UI
-- Create stories
-- react-doc-gen
-- addon
-- static html page
+- Documents
+  - StoryBook－高效有组织的构建UI
+  - Create stories
+  - react-doc-gen
+  - addon
+  - static html page
 
-## CI/CD
-- Husky validation before submit
-- Travis CI/CD
+- CI/CD
+  - Husky validation before submit
+  - Travis CI/CD
 
 ## Missed
 - 2-10, 2-12, 2-14
@@ -51,3 +45,6 @@
 - 6-1, 6-2, 6-7, 6-11
 - 7-1, 7-6, 7-7, 7-8
 - 8-1, 8-3, 8-8
+
+
+- 12-1, 12-5
