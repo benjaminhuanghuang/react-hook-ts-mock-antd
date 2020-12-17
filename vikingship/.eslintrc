@@ -1,6 +1,5 @@
 {
   "extends": [
-    "airbnb",
     "prettier",
     "prettier/react"
   ],
@@ -20,6 +19,8 @@
     "jest": true
   },
   "rules": {
+    "quotes": [0, "double"],
+    "jsx-quotes": [2, "prefer-single"],
     "react/prop-types": 0,
     "react-hooks/rules-of-hooks": "error",
     "no-debugger": 0,
@@ -94,19 +95,11 @@
         ]
       }
     ],
-    "quotes": [
-      2,
-      "single",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
-    ],
     "prettier/prettier": [
       "error",
       {
         "trailingComma": "es5",
-        "singleQuote": true,
+        "singleQuote": false,
         "printWidth": 120
       }
     ],
