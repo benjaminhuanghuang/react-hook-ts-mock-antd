@@ -15,36 +15,37 @@
 ## Key points
 
 - Typescript
-  - interface
-  - class
-  - Generics
 
 - React Hooks
 
-- Test
-  - Jest , react-testing-library
-  - mock
+- Component Dev
 
-- CSS
-  - Sass
-  - variable ,mixin, function
-  - Css file organization in big project
+  - Project Structure
+    
+  - Test
+    - Jest , react-testing-library
+    - mock
 
-- 3rd Party Libs
-  - react-transition
-  - fontawasome
-  - axios
+  - CSS
+    - Sass
+    - variable ,mixin, function
+    - Css file organization in big project
 
-- Documents
-  - StoryBook－高效有组织的构建UI
-  - Create stories
-  - react-doc-gen
-  - addon
-  - static html page
+  - 3rd Party Libs
+    - react-transition
+    - fontawasome
+    - axios
 
-- CI/CD
-  - Husky validation before submit
-  - Travis CI/CD
+  - Documents
+    - StoryBook－高效有组织的构建UI
+    - Create stories
+    - react-doc-gen
+    - addon
+    - static html page
+
+  - CI/CD
+    - Husky validation before submit
+    - Travis CI/CD
 ## Missed
 - 4-3, 4-8, 4-10
 - 5-5

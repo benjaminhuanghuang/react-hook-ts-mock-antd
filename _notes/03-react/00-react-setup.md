@@ -1,4 +1,0 @@
-## Create Project
-```
-  npx create-react-app my-app --typescript
-```
