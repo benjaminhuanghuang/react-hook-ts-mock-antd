@@ -1,0 +1,31 @@
+
+
+$font-weight-lighter:         lighter !default;
+
+
+// darken is a sass function
+$link-hover-color:  darken($link-color, 15%) !default;
+
+
+// Placeholder Selectors: %foo
+%heading {
+  margin-top: 0; // 1
+  margin-bottom: $headings-margin-bottom;
+  font-family: $headings-font-family;
+  font-style: $headings-font-style;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+}
+
+// @extend 展开某个定义好的selector
+h1 {
+  @extend %heading;
+  font-size: $h1-font-size;
+}
+
+
+// 注意 sass 中partial 文件以 _开头，index.scss 中导入的文件名不加 _
+// partial 文件不会被编译成 css
+@import "variables";
+
