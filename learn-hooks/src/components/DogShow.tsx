@@ -3,7 +3,7 @@ import React from 'react'
 import withLoader from '../hoc/withLoader'
 
 
-interface ShowRestul {
+export interface ShowRestul {
   message: string;
   status:string
 
@@ -14,6 +14,7 @@ interface ShowRestul {
     data: any;
     isLoading: boolean;
   }
+  HOC的缺点是 被wrapped的组件需要之道HOC的数据结构
 */
 const DogShow : React.FC<{data:ShowRestul}> = ({data:{status, message}})=>{
   return (
@@ -24,6 +25,4 @@ const DogShow : React.FC<{data:ShowRestul}> = ({data:{status, message}})=>{
   )
 }
 
-const HOCDogShow = withLoader(DogShow, "https://dog.ceo/api/breeds/image/random")
-
-export default HOCDogShow;
+export default DogShow;
