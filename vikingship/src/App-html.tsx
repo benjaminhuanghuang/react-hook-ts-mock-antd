@@ -1,13 +1,17 @@
-import React from "react";
+import React from 'react';
 
 function App() {
   return (
     <div className="App">
-      <h1>hello</h1>
-      <h2>hello</h2>
-      <h3>hello</h3>
-      <p>Hello</p>
-      <a className="App-link" href="https://reactjs.org">Test</a>
+      <h1>Demo for reboot.scss</h1>
+      <h2>Demo for reboot.scss</h2>
+      <h3>Demo for reboot.scss</h3>
+      <p>Demo for reboot.scss</p>
+      <code>a = b + c;</code>
+      <hr />
+      <a className="App-link" href="https://reactjs.org">
+        Test
+      </a>
     </div>
   );
 }
