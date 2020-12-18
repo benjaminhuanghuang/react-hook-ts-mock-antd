@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "./styles/index.scss";
 
 import App from "./App";
-import Demo from "./App-html";
-import ButtonDemo from "./ButtonDemo";
+// import Demo from "./App-html";
+import Demo from "./App-Button";
 
 import MenuDemo from "./MenuDemo";
 
