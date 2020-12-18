@@ -2,9 +2,11 @@
 
 $font-weight-lighter:         lighter !default;
 
-
-// darken is a sass function
+/*
+  sass build function
+*/
 $link-hover-color:  darken($link-color, 15%) !default;
+$hover-background: lighten($background, 7.5%);
 
 
 // Placeholder Selectors: %foo
@@ -29,3 +31,18 @@ h1 {
 // partial 文件不会被编译成 css
 @import "variables";
 
+
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+
+/*
+  @mixin smaple
+*/
+@mixin button-size($padding-y, $padding-x, $font-size, $border-raduis) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  border-radius: $border-raduis;
+}
+
+.btn-lg {
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+}
