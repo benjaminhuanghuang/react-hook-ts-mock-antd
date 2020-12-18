@@ -7,10 +7,21 @@ import MenuItem from "./components/Menu/menuItem";
 function App() {
   return (
     <div className="App">
+       <Menu defaultIndex='0' onSelect={(index)=>{alert(index)}}>
+        <MenuItem>Cool link</MenuItem>
+        <MenuItem disabled>Cool link 2</MenuItem>
+        <MenuItem>Cool link 3</MenuItem>
+        <SubMenu title="dropdown">
+          <MenuItem>dropdown 1</MenuItem>
+          <MenuItem>dropdown 2</MenuItem>
+        </SubMenu>
+        <MenuItem disabled>Cool link 3</MenuItem>
+      </Menu>
+
       <Menu defaultIndex='0' onSelect={(index)=>{alert(index)}} mode='vertical' defaultOpenSubMenus={['2']}>
         <MenuItem>Cool link</MenuItem>
         <MenuItem disabled>Cool link 2</MenuItem>
-
+        <MenuItem>Cool link 3</MenuItem>
         <SubMenu title="dropdown">
           <MenuItem>dropdown 1</MenuItem>
           <MenuItem>dropdown 2</MenuItem>
