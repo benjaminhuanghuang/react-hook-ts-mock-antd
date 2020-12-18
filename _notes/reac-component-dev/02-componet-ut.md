@@ -50,3 +50,9 @@
 - check different props
 - disable
 - evnet fired
+
+
+
+## How to
+- create some props for test cases
+

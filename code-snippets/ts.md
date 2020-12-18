@@ -20,3 +20,11 @@ import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react'
 // merge button props with the HTML button arribute
 type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
 ```
+
+
+```
+  // use getElementByTagName('li') will get the li in subMene
+  // ':scope > li' means li under current element
+  expect(menuElement.querySelectorAll(':scope > li').length).toEqual(5)
+ 
+```
