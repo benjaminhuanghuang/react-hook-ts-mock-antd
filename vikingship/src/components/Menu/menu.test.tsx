@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, RenderResult, fireEvent, wait } from '@testing-library/react'
+import { render, RenderResult, fireEvent, waitFor } from '@testing-library/react'
 import Menu, {MenuProps} from './menu'
 import MenuItem from './menuItem'
 import SubMenu from './subMenu'
@@ -67,7 +67,6 @@ const createStyleFile = () => {
     }
   `
   const style = document.createElement('style')
-  style.type = 'text/css'
   style.innerHTML = cssFile
   return style
 }
@@ -78,6 +77,8 @@ let wrapper: RenderResult,
     activeElement: HTMLElement, 
     disabledElement: HTMLElement
 
+
+// Test suit    
 describe('test Menu and MenuItem component in default(horizontal) mode', () => {
   beforeEach(() => {
     wrapper = render(generateMenu(testProps))
@@ -90,7 +91,7 @@ describe('test Menu and MenuItem component in default(horizontal) mode', () => {
   it('should render correct Menu and MenuItem based on default props', () => {
     expect(menuElement).toBeInTheDocument()
     expect(menuElement).toHaveClass('viking-menu test')
-    // use getElementByTagName('li') will get the li in subMene
+    //  use getElementByTagName('li') will get the li in subMene
     // ':scope > li' means li under current element
     expect(menuElement.querySelectorAll(':scope > li').length).toEqual(5)
     expect(activeElement).toHaveClass('menu-item is-active')
@@ -114,13 +115,13 @@ describe('test Menu and MenuItem component in default(horizontal) mode', () => {
     expect(wrapper.queryByText('drop1')).not.toBeVisible()
     const dropdownElement = wrapper.getByText('dropdown')
     fireEvent.mouseEnter(dropdownElement)
-    await wait(() => {
+    await waitFor(() => {
       expect(wrapper.queryByText('drop1')).toBeVisible()
     })
     fireEvent.click(wrapper.getByText('drop1'))
     expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
     fireEvent.mouseLeave(dropdownElement)
-    await wait(() => {
+    await waitFor(() => {
       expect(wrapper.queryByText('drop1')).not.toBeVisible()
     })
   })

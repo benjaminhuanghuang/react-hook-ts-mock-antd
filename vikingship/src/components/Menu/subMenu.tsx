@@ -88,4 +88,5 @@ const SubMenu: React.FC<SubMenuProps> = ({ index, title, children, className}) =
 }
 
 SubMenu.displayName = 'SubMenu'
+
 export default SubMenu

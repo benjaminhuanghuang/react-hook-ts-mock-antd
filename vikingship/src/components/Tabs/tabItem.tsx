@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { TabContext } from './tabs'
 
 export interface TabItemProps {
-  index?: string;
+  index?: number;
   disabled?: boolean;
   label?: string;
   className?: string;
@@ -32,7 +32,7 @@ const TabItem: React.FC<TabItemProps> = (props) => {
   )
 }
 
-// TabItem.label = 'TabItem'
+TabItem.displayName = 'TabItem'
 
 
 export default TabItem
