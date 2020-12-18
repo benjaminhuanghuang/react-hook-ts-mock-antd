@@ -6,7 +6,7 @@ import Button, {ButtonType, ButtonSize } from './components/Button/button'
 function App() {
   return (
     <div className="App">
-      <Button>Hellos</Button>
+      <Button onClick={(e)=>{e.preventDefault(); alert(123)}} className='custom'>Hellos</Button>
       <Button disabled>Hellos</Button>
       <Button btnType="primary" size="lg" >Hellos</Button>
       <Button btnType="link" href="google.com" >Hellos</Button>
