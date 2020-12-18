@@ -7,7 +7,7 @@
 
 
 
-![Cource content](./_notes/images/course-content.png)
+![Cource content](./_notes/_images/course-content.png)
 
 
 ## 组件开发流程
@@ -47,7 +47,6 @@
     - Husky validation before submit
     - Travis CI/CD
 ## Missed
-- 4-8, 4-10
 - 5-5
 - 6-1, 6-2, 6-7, 6-11
 - 7-1, 7-6, 7-7, 7-8
