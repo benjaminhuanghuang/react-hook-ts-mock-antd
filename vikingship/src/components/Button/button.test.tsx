@@ -36,7 +36,9 @@ describe('test Button component', () => {
 
   it('should render the correct component based on different props', () => {
     const wrapper = render(<Button {...testProps}>Nice</Button>);
+
     const element = wrapper.getByText('Nice');
+    
     expect(element).toBeInTheDocument();
     expect(element).toHaveClass('btn-primary btn-lg klass');
   });
