@@ -1,5 +1,5 @@
 
-  enum vs type
+  enum vs literal type
 ```
 export enum ButtonType {
   Primary =  'primary',
