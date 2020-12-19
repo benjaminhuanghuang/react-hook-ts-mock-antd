@@ -6,6 +6,7 @@ type AnimationName = 'zoom-in-top' | 'zoom-in-left' | 'zoom-in-bottom' | 'zoom-i
 
 type TransitionProps =  CSSTransitionProps & {
   animation?: AnimationName,
+  // 防止transaction 和被wrapped component上的 transacton 冲突
   wrapper? : boolean,
   in?: any,
   timeout?: any
