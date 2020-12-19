@@ -11,14 +11,14 @@ export interface MenuProps {
   mode?: MenuMode;
   style?: CSSProperties;
   onSelect?: SelectCallback;
-  /**设置子菜单的默认打开 只在纵向模式下生效 */
+  /**设置子菜单的默认打开的index 只在纵向模式下生效 */
   defaultOpenSubMenus?: string[];
 }
 
 interface IMenuContext {
   index: string;
   onSelect?: SelectCallback;
-  mode?: MenuMode;
+  mode?: MenuMode;  // sub menu need this information for rendering
   defaultOpenSubMenus?: string[];
 }
 
@@ -56,7 +56,7 @@ export const Menu: FC<MenuProps> = (props) => {
   
   const passedContext: IMenuContext = {
     index: currentActive ? currentActive : '0',
-    onSelect: handleClick,
+    onSelect: handleClick,   // MenuItem uses this function to call setActive
     mode,
     defaultOpenSubMenus,
   };

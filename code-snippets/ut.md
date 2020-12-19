@@ -29,3 +29,11 @@ it('should render the correct default button', () => {
     expect(disabledProps.onClick).not.toHaveBeenCalled();
   })
 ```
+
+
+```
+  //  use getElementByTagName('li') will get the li in subMene
+  // ':scope > li' means li under menuElement
+  expect(menuElement.querySelectorAll(':scope > li').length).toEqual(5)
+   
+```   

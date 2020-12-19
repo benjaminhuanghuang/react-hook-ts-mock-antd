@@ -49,6 +49,9 @@ const SubMenu: React.FC<SubMenuProps> = ({ index, title, children, className}) =
     onMouseLeave: (e: React.MouseEvent) => { handleMouse(e, false)}
   } : {}
 
+  /*
+
+  */
   const renderChildren = () => {
     const subMenuClasses = classNames('viking-submenu', {
       'menu-opened': menuOpen
@@ -57,7 +60,7 @@ const SubMenu: React.FC<SubMenuProps> = ({ index, title, children, className}) =
       const childElement = child as FunctionComponentElement<MenuItemProps>
       if (childElement.type.displayName === 'MenuItem') {
         return React.cloneElement(childElement, {
-          index: `${index}-${i}`    // Create index
+          index: `${index}-${i}`    // add index to childElement
         })
       } else {
         console.error("Warning: SubMenu has a child which is not a MenuItem component")
