@@ -46,10 +46,4 @@
   - CI/CD
     - Husky validation before submit
     - Travis CI/CD
-## Missed
-- 6-1, 6-2, 6-7, 6-11
-- 7-1, 7-6, 7-7, 7-8
-- 8-1, 8-3, 8-8
-
-
-- 12-1, 12-5
+    

@@ -28,3 +28,22 @@ type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
   expect(menuElement.querySelectorAll(':scope > li').length).toEqual(5)
  
 ```
+
+To test visable/invisible, add css to test
+```
+  const createStyleFile = () => {
+    const cssFile: string = `
+      .viking-submenu {
+        display: none;
+      }
+      .viking-submenu.menu-opened {
+        display:block;
+      }
+    `
+    const style = document.createElement('style')
+    style.innerHTML = cssFile
+    return style
+  }
+
+  wrapper.container.append(createStyleFile())
+```
