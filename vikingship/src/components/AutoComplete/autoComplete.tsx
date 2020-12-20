@@ -5,12 +5,13 @@ import React, {
   KeyboardEvent,
   FC,
   useState,
-  useRef
+  useRef,
 } from 'react';
 import classNames from 'classnames';
 //
 import Input, { InputProps } from '../Input/input';
 import Icon from '../Icon/icon';
+import Transition from '../Transition/transition';
 import useDoubance from '../../hooks/useDebounce';
 import useClickOutside from '../../hooks/useClickOutside';
 
@@ -41,19 +42,17 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const triggerSearch = useRef(false);
-  const componentRef = useRef<HTMLDivElement>(null);  // the div of autoComplent component
-
+  const componentRef = useRef<HTMLDivElement>(null); // the div of autoComplent component
 
   // Support Keyboard
   const [highlightIndex, setHighlightIndex] = useState(-1);
 
   const debouncedValue = useDoubance(inputValue, 500);
-  useClickOutside(componentRef, ()=>{
+  useClickOutside(componentRef, () => {
     // close suggeston drop down
-    setSuggestions([])
-  })
+    setSuggestions([]);
+  });
 
-   
   useEffect(() => {
     if (debouncedValue && triggerSearch.current) {
       const result = fetchSuggestions(inputValue);
@@ -83,8 +82,8 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
     // console.log('Key  code', e.key, e.code);
     switch (e.key) {
       case 'Enter':
-        if(suggestions[highlightIndex])
-        { // suggesions is [] when fetch is running
+        if (suggestions[highlightIndex]) {
+          // suggesions is [] when fetch is running
           handleSelect(suggestions[highlightIndex]);
         }
         break;
@@ -126,22 +125,30 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
 
   const generateDropDown = () => {
     return (
-      <ul>
-        {suggestions.map((item, index) => {
-          const cnames = classNames({
-            'item-highlighted': index === highlightIndex,
-          });
-          return (
-            <li
-              key={index}
-              className={cnames}
-              onClick={() => handleSelect(item)}
-            >
-              {renderTemplate(item)}
-            </li>
-          );
-        })}
-      </ul>
+      <Transition in ={loading} animation="zoom-in-top"
+      timeout={300} onExited={()=>{setSuggestions([])}}>
+        <ul className="viking-suggestion-list">
+          {
+            loading && <div className="suggeston-loading-icon">
+              <Icon icon="spinner" spin></Icon>
+            </div>
+          }
+          {suggestions.map((item, index) => {
+            const cnames = classNames("suggestion-item",{
+              'item-highlighted': index === highlightIndex,
+            });
+            return (
+              <li
+                key={index}
+                className={cnames}
+                onClick={() => handleSelect(item)}
+              >
+                {renderTemplate(item)}
+              </li>
+            );
+          })}
+        </ul>
+      </Transition>
     );
   };
   return (
