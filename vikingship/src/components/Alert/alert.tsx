@@ -1,4 +1,4 @@
-import React, { FC, useState, ClickEvent } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import classNames from 'classnames';
 import Icon from '../Icon';
 import Transition from '../Transition';
@@ -24,7 +24,7 @@ const Alert: FC<AlertProps> = (props) => {
   const titleClass = classNames('viking-alert-title', {
     'bold-title': description,
   });
-  const handleClose = (e: HTMLElementEvent<HTMLElement>) => {
+  const handleClose = (e: MouseEvent<HTMLElement>) => {
     if (onClose) {
       onClose();
     }
