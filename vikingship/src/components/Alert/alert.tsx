@@ -1,5 +1,7 @@
-import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
+import React, { FC, useState, ClickEvent } from 'react';
 import classNames from 'classnames';
+import Icon from '../Icon';
+import Transition from '../Transition';
 
 export type AlertType = 'success' | 'default' | 'danger' | 'warning';
 
@@ -13,7 +15,39 @@ export interface AlertProps {
 }
 
 const Alert: FC<AlertProps> = (props) => {
-  return <div>Alert</div>;
+  const { title, description, type, onClose, closable } = props;
+
+  const [hide, setHide] = useState(false);
+  const classes = classNames('viking-alert', {
+    [`viking-alert-${type}`]: type,
+  });
+  const titleClass = classNames('viking-alert-title', {
+    'bold-title': description,
+  });
+  const handleClose = (e: HTMLElementEvent<HTMLElement>) => {
+    if (onClose) {
+      onClose();
+    }
+    setHide(true);
+  };
+  return (
+    <Transition in={!hide} animation="zoom-in-top" timeout={300}>
+      <div className={classes}>
+        <span className={titleClass}>{title}</span>
+        {description && <p className="viking-alert-desc">{description}</p>}
+        {closable && (
+          <span className="viking-alert-close" onClick={handleClose}>
+            <Icon icon="times" />
+          </span>
+        )}
+      </div>
+    </Transition>
+  );
+};
+
+Alert.defaultProps = {
+  type: 'default',
+  closable: true,
 };
 
 export default Alert;
