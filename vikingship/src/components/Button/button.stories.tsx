@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import {withInfo} from '@storybook/addon-info';
 
 import Button from './button';
 
@@ -28,7 +27,6 @@ const buttonWithType = () => (
 );
 
 storiesOf('Button Component', module)
-  .addDecorator(withInfo)
   .addParameters(
     {info:{
       text: ` this is a very nice componnet
