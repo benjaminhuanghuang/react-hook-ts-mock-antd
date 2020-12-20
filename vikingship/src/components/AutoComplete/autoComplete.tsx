@@ -41,6 +41,8 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const [inputValue, setInputValue] = useState<string>(value as string);
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [ showDropdown, setShowDropdown] = useState(false)
+
   const triggerSearch = useRef(false);
   const componentRef = useRef<HTMLDivElement>(null); // the div of autoComplent component
 
@@ -55,18 +57,25 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
 
   useEffect(() => {
     if (debouncedValue && triggerSearch.current) {
-      const result = fetchSuggestions(inputValue);
-      if (result instanceof Promise) {
+      const results = fetchSuggestions(inputValue);
+      if (results instanceof Promise) {
         setLoading(true);
-        result.then((data) => {
+        results.then((data) => {
           setSuggestions(data);
           setLoading(false);
+          if (data.length > 0) {
+            setShowDropdown(true)
+          }
         });
       } else {
-        setSuggestions(result);
+        setSuggestions(results)
+        setShowDropdown(true)
+        if (results.length > 0) {
+          setShowDropdown(true)
+        }
       }
     } else {
-      setSuggestions([]);
+      setShowDropdown(false)
     }
     // clear highlight after fetch
     setHighlightIndex(-1);
@@ -89,7 +98,7 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
         break;
 
       case 'Escape':
-        setSuggestions([]);
+        setShowDropdown(false)
         break;
 
       case 'ArrowDown':
@@ -111,12 +120,12 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
   };
 
   const handleSelect = (item: DataSourceType) => {
-    setInputValue(item.value);
-    setSuggestions([]);
+    setInputValue(item.value)
+    setShowDropdown(false)
     if (onSelect) {
-      onSelect(item);
+      onSelect(item)
     }
-    triggerSearch.current = false;
+    triggerSearch.current = false
   };
 
   const renderTemplate = (item: DataSourceType) => {
@@ -125,7 +134,7 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
 
   const generateDropDown = () => {
     return (
-      <Transition in ={loading} animation="zoom-in-top"
+      <Transition in ={showDropdown || loading} animation="zoom-in-top"
       timeout={300} onExited={()=>{setSuggestions([])}}>
         <ul className="viking-suggestion-list">
           {
@@ -135,7 +144,7 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
           }
           {suggestions.map((item, index) => {
             const cnames = classNames("suggestion-item",{
-              'item-highlighted': index === highlightIndex,
+              'is-active': index === highlightIndex,
             });
             return (
               <li
@@ -159,12 +168,7 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
         {...restProps}
         onKeyDown={handleKeyDown}
       />
-      {loading && (
-        <ul>
-          <Icon icon="spinner" spin />
-        </ul>
-      )}
-      {suggestions.length > 0 && generateDropDown()}
+      {generateDropDown()}
     </div>
   );
 };
