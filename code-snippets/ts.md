@@ -21,6 +21,13 @@ import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react'
 type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
 ```
 
+ignore 'size' on InputHTMLAttributes and define a new one has different type.
+```
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size' > {
+  size: InputSize
+}
+```
+
 
 ```
   // use getElementByTagName('li') will get the li in subMene
