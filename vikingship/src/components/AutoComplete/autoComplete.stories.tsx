@@ -5,7 +5,6 @@ import AutoComplete, { DataSourceType } from './autoComplete';
 
 interface PlayerProps {
   value: string;
-  number: number;
 }
 
 
