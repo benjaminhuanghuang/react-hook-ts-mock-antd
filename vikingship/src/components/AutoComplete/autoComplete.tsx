@@ -1,61 +1,79 @@
-import React, {ChangeEvent, FC, useState} from 'react'
+import React, { ReactElement, ChangeEvent, FC, useState } from 'react';
 //
-import Input, {InputProps} from '../Input/input';
-
-export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
-  fetchSuggestions: (str: string) => string[];
-  onSelect?:(item: string)=> void;
-  value?:string
+import Input, { InputProps } from '../Input/input';
+import Icon from '../Icon/icon';
+interface DataSourceObject {
+  value: string;
 }
 
+export type DataSourceType<T={}> = T & DataSourceObject;
 
-const AutoComplete: FC<AutoCompleteProps> = (props) =>{
-  const {
-    fetchSuggestions,
-    onSelect,
-    value,
-    ...restProps
-  } = props;
+export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
+  fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>;
+  onSelect?: (item: DataSourceType) => void;
+  renderOption?: (item: DataSourceType) => ReactElement;
+}
 
+const AutoComplete: FC<AutoCompleteProps> = (props) => {
+  const { fetchSuggestions, onSelect, value, renderOption, ...restProps } = props;
+ 
   const [inputValue, setInputValue] = useState(value);
-  const [suggestions, setSuiggestions] = useState<string[]>([]);
+  const [suggestions, setSuiggestions] = useState<DataSourceType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>{
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setInputValue(value);
 
-    if(value){
+    if (value) {
       const result = fetchSuggestions(value);
-      setSuiggestions(result);
-    }
-    else
-    {
+      if(result instanceof Promise){
+        setLoading(true);
+        result.then((data)=>{
+          setSuiggestions(data);
+          setLoading(false);
+        })
+      }
+      else{
+        setSuiggestions(result);
+      }
+    } else {
       setSuiggestions([]);
     }
+  };
+
+  const handleSelect = (item: DataSourceType) => {
+    setInputValue(item.value);
+    setSuiggestions([]);
+    if (onSelect) {
+      onSelect(item);
+    }
+  };
+
+  const renderTemplate = (item : DataSourceType) =>{
+    return renderOption? renderOption(item) : item.value
   }
-  
-  const generateDropDown = () =>{
+
+  const generateDropDown = () => {
     return (
       <ul>
-        {suggestions.map((item, index)=>{
+        {suggestions.map((item, index) => {
           return (
-              <li key={index}>{item}</li>
-          )
+            <li key={index} onClick={() => handleSelect(item)}>
+              {renderTemplate(item)}
+            </li>
+          );
         })}
       </ul>
-    )
-  }
+    );
+  };
   return (
     <div className="viking-auto-complete">
-      <Input 
-        value={value}
-        onChange={handleChange}
-        {...restProps}
-      />
-      {(suggestions.length > 0 && generateDropDown())}
+      <Input value={value} onChange={handleChange} {...restProps} />
+      {loading && <ul><Icon icon="spinner" spin/></ul>}
+      {suggestions.length > 0 && generateDropDown()}
     </div>
-  )
-} 
+  );
+};
 
 export default AutoComplete;
