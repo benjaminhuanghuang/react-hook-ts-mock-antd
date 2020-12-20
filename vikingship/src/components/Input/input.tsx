@@ -13,6 +13,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
   // can by other react element
   prepend?: string | ReactElement;
   append?: string | ReactElement;
+  // 方便从 event中拿到数据
   onChange? : (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -50,6 +51,7 @@ export const Input: FC<InputProps> = (props) => {
     }
     return value
   }
+  // value 不能和 defaultValue 共存
   if('value' in props) {
     delete restProps.defaultValue
     restProps.value = fixControlledValue(props.value)
