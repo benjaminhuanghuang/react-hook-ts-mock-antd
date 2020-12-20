@@ -5,12 +5,14 @@ import React, {
   KeyboardEvent,
   FC,
   useState,
+  useRef
 } from 'react';
-import classNames from 'classnames'
+import classNames from 'classnames';
 //
 import Input, { InputProps } from '../Input/input';
 import Icon from '../Icon/icon';
 import useDoubance from '../../hooks/useDebounce';
+import useClickOutside from '../../hooks/useClickOutside';
 
 interface DataSourceObject {
   value: string;
@@ -36,46 +38,59 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
   } = props;
 
   const [inputValue, setInputValue] = useState<string>(value as string);
-  const [suggestions, setSuiggestions] = useState<DataSourceType[]>([]);
+  const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const triggerSearch = useRef(false);
+  const componentRef = useRef<HTMLDivElement>(null);  // the div of autoComplent component
+
+
   // Support Keyboard
   const [highlightIndex, setHighlightIndex] = useState(-1);
 
   const debouncedValue = useDoubance(inputValue, 500);
+  useClickOutside(componentRef, ()=>{
+    // close suggeston drop down
+    setSuggestions([])
+  })
 
+   
   useEffect(() => {
-    if (debouncedValue) {
+    if (debouncedValue && triggerSearch.current) {
       const result = fetchSuggestions(inputValue);
       if (result instanceof Promise) {
         setLoading(true);
         result.then((data) => {
-          setSuiggestions(data);
+          setSuggestions(data);
           setLoading(false);
         });
       } else {
-        setSuiggestions(result);
+        setSuggestions(result);
       }
     } else {
-      setSuiggestions([]);
+      setSuggestions([]);
     }
+    // clear highlight after fetch
+    setHighlightIndex(-1);
   }, [debouncedValue]);
 
-  const highligh = (index: number)=>{
-
-    if(index < 0)
-      index =0;
-    if(index>=suggestions.length)
-      index = suggestions.length -1;
+  const highligh = (index: number) => {
+    if (index < 0) index = 0;
+    if (index >= suggestions.length) index = suggestions.length - 1;
     setHighlightIndex(index);
-  }
+  };
   //
   const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    console.log('Key  code', e.key, e.code);
+    // console.log('Key  code', e.key, e.code);
     switch (e.key) {
       case 'Enter':
+        if(suggestions[highlightIndex])
+        { // suggesions is [] when fetch is running
+          handleSelect(suggestions[highlightIndex]);
+        }
         break;
 
       case 'Escape':
+        setSuggestions([]);
         break;
 
       case 'ArrowDown':
@@ -83,7 +98,7 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
         break;
 
       case 'ArrowUp':
-        highligh(highlightIndex -1);
+        highligh(highlightIndex - 1);
         break;
 
       default:
@@ -93,14 +108,16 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setInputValue(value);
+    triggerSearch.current = true;
   };
 
   const handleSelect = (item: DataSourceType) => {
     setInputValue(item.value);
-    setSuiggestions([]);
+    setSuggestions([]);
     if (onSelect) {
       onSelect(item);
     }
+    triggerSearch.current = false;
   };
 
   const renderTemplate = (item: DataSourceType) => {
@@ -112,10 +129,14 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
       <ul>
         {suggestions.map((item, index) => {
           const cnames = classNames({
-            'item-highlighted' : index === highlightIndex
-          })
+            'item-highlighted': index === highlightIndex,
+          });
           return (
-            <li key={index} className = {cnames} onClick={() => handleSelect(item)}>
+            <li
+              key={index}
+              className={cnames}
+              onClick={() => handleSelect(item)}
+            >
               {renderTemplate(item)}
             </li>
           );
@@ -126,7 +147,7 @@ const AutoComplete: FC<AutoCompleteProps> = (props) => {
   return (
     <div className="viking-auto-complete">
       <Input
-        value={value}
+        value={inputValue}
         onChange={handleChange}
         {...restProps}
         onKeyDown={handleKeyDown}
