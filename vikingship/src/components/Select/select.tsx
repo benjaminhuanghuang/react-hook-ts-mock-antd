@@ -181,6 +181,7 @@ const Select: FC<SelectProps> = (props) => {
               {selectedValues.map((value, index) => {
                 return (
                   <span className="viking-tag" key={'tag-' + index}>
+                    {value}
                     <Icon
                       icon="times"
                       onClick={() => handleOptionClick(value, true)}
