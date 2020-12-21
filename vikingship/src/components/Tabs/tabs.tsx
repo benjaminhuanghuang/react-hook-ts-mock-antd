@@ -1,84 +1,78 @@
-import React, { FC, useState, createContext, CSSProperties } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import classNames from 'classnames';
-import { TabItemProps } from './tabItem';
-
-type TabMode = 'horizontal' | 'vertical';
-type SelectCallback = (selectedIndex: number) => void;
+import TabItem, { TabItemProps } from './tabItem';
 
 export interface TabProps {
-  defaultIndex?: number; // the active item
-  label?: 'string'
+  /**当前激活 tab 面板的 index，默认为0 */
+  defaultIndex?: number;
+  /**可以扩展的 className */
   className?: string;
-  mode?: TabMode;
-  style?: CSSProperties;
-  onSelect?: SelectCallback;
+  /**点击 Tab 触发的回调函数 */
+  onSelect?: (selectedIndex: number) => void;
+  /**Tabs的样式，两种可选，默认为 line */
+  type?: 'line' | 'card';
 }
 
-interface ITabContext {
-  index: number;
-  onSelect?: SelectCallback;
-}
+export const Tabs: FC<TabProps> = (props) => {
+  const { defaultIndex, className, type, children, onSelect } = props;
 
-export const TabContext = createContext<ITabContext>({ index: 0 });
+  const [activeIndex, setActiveIndex] = useState(defaultIndex);
 
-
-export const Tab: FC<TabProps> = (props) => {
-  const {
-    className,
-    mode,
-    style,
-    children,
-    defaultIndex,
-    onSelect,
-  } = props;
-  // set active menu item
-  const [currentActive, setActive] = useState(defaultIndex);
-
-  const classes = classNames('viking-tab', className, {
-    'tab-vertical': mode === 'vertical',
-    'tab-horizontal': mode !== 'vertical',
+  const navClass = classNames('viking-tabs-nav', {
+    'nav-line': type === 'line',
+    'nav-card': type === 'card',
   });
-  
-  const handleClick = (index: number) => {
-    setActive(index);
-    if (onSelect) {
-      onSelect(index);
+
+  const handleClick = (e: MouseEvent, index: number, disabled: boolean) => {
+    if (!disabled) {
+      setActiveIndex(index);
+      if (onSelect) {
+        onSelect(index);
+      }
     }
   };
-  
-  const passedContext: ITabContext = {
-    index: currentActive ? currentActive : 0,
-    onSelect: handleClick,
+
+  var renderNavLinks = function () {
+    return React.Children.map(children, function (child, index) {
+      var childElement = child as React.FunctionComponentElement<TabItemProps>;;
+      const {label, disabled=false} = childElement.props;
+
+      const classes = classNames('viking-tabs-nav-item', {
+        'is-active': activeIndex === index,
+        disabled: disabled,
+      });
+
+      return (
+        <li
+          className={classes}
+          key={`'nav-item-${index}`}
+          onClick={(e: MouseEvent<HTMLElement>) => handleClick(e, index, disabled)}
+        >
+          {label}
+        </li>
+      );
+    });
   };
 
-  // Filter the children of the Menu and add 'index' property to subItem
-  const renderChildren = () => {
-    return React.Children.map(children, (child, index) => {
-      const childElement = child as React.FunctionComponentElement<TabItemProps>;
-      const { displayName } = childElement.type;
-      if (displayName === 'TabItem') {
-        return React.cloneElement(childElement, {
-          index: index, // create index
-        });
-      } else {
-        console.error(
-          'Warning: Menu has a child which is not a TabItem component'
-        );
+  var renderContent = function () {
+    return React.Children.map(children, function (child, index) {
+      if (index === activeIndex) {
+        return child;
       }
     });
   };
+
   return (
-    <ul className={classes} style={style} data-testid="test-tab">
-      <TabContext.Provider value={passedContext}>
-        {renderChildren()}
-      </TabContext.Provider>
-    </ul>
+    <div className={'viking-tabs ' + className}>
+      <ul className={navClass}>{renderNavLinks()}</ul>
+      <div className="viking-tabs-content"> {renderContent()}</div>
+    </div>
   );
 };
 
-Tab.defaultProps = {
+Tabs.defaultProps = {
   defaultIndex: 0,
-  mode: 'horizontal',
+  type: 'line',
 };
 
-export default Tab;
+export default Tabs;

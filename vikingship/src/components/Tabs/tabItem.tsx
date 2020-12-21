@@ -1,38 +1,26 @@
-import React, { useContext } from 'react'
-import classNames from 'classnames'
-import { TabContext } from './tabs'
-
+import React from 'react';
 export interface TabItemProps {
-  index?: number;
+  /** Tab选项上面的文字 */
+  label: string | React.ReactElement;
+  /** Tab选项是否被禁用 */
   disabled?: boolean;
-  label?: string;
-  className?: string;
-  style?: React.CSSProperties;
 }
 
 const TabItem: React.FC<TabItemProps> = (props) => {
-  const { index, disabled, className, style, children } = props
-
-  // context context the information from menu
-  const context = useContext(TabContext)
-
-  const classes = classNames('tab-item', className, {
-    'is-disabled': disabled,
-    'is-active': context.index === index
-  })
-  const handleClick = () => {
-    if (context.onSelect && !disabled && (typeof index === 'string')) {
-      context.onSelect(index)
-    }
-  }
+  const {
+    children
+  } = props;
   return (
-    <li className={classes} style={style} onClick={handleClick}>
-      {children}
-    </li>
-  )
-}
+    <div className="viking-tab-panel">
+        {children}
+    </div>
+  );
+};
 
-TabItem.displayName = 'TabItem'
+TabItem.displayName = 'TabItem';
 
+TabItem.defaultProps = {
+  disabled: false
+};
 
-export default TabItem
+export default TabItem;
