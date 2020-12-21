@@ -2,7 +2,11 @@ import React, { FC, useRef, ChangeEvent, useState } from 'react'
 import axios from 'axios'
 import UploadList from './uploadList'
 import Dragger from './dragger'
+
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
+/*
+  preserve file information
+*/
 export interface UploadFile {
   uid: string;
   size: number;
@@ -50,8 +54,10 @@ export const Upload: FC<UploadProps> = (props) => {
     children,
     drag,
   } = props
+
   const fileInput = useRef<HTMLInputElement>(null)
   const [ fileList, setFileList ] = useState<UploadFile[]>(defaultFileList || [])
+  
   const updateFileList = (updateFile: UploadFile, updateObj: Partial<UploadFile>) => {
     setFileList(prevList => {
       return prevList.map(file => {
@@ -86,6 +92,7 @@ export const Upload: FC<UploadProps> = (props) => {
       onRemove(file)
     }
   }
+
   const uploadFiles = (files: FileList) => {
     let postFiles = Array.from(files)
     postFiles.forEach(file => {
@@ -103,6 +110,9 @@ export const Upload: FC<UploadProps> = (props) => {
       }
     })
   }
+  /*
+    upload file
+  */
   const post = (file: File) => {
     let _file: UploadFile = {
       uid: Date.now() + 'upload-file',

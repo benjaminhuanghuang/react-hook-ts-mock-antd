@@ -14,6 +14,7 @@ export const Dragger: FC<DraggerProps> = (props) => {
   const handleDrop = (e: DragEvent<HTMLElement>) => {
     e.preventDefault()
     setDragOver(false)
+    // call method in upload
     onFile(e.dataTransfer.files)
   }
   const handleDrag = (e: DragEvent<HTMLElement>, over: boolean) => {
